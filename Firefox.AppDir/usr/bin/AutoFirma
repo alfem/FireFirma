@@ -1,0 +1,8 @@
+#!/bin/bash
+
+HERE="$(dirname "$(readlink -f "${0}")")"
+export NSS_PATH="$HERE"
+#export USE_ENV_VARS=true
+export AFIRMA_NSS_HOME_ENV="$APPDIR"/usr/bin/
+export AFIRMA_NSS_PROFILES_INI="$HOME"/firefirma/profiles.ini
+java -jar -Des.gob.afirma.keystores.mozilla.UseEnvironmentVariables=true  $APPDIR/usr/lib/AutoFirma/AutoFirma.jar $*

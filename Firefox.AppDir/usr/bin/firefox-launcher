@@ -1,0 +1,24 @@
+#!/bin/sh
+
+#Creamos un perfil nuevo de Firefox 
+
+if [[ ! -e $HOME/firefirma/profile ]]; then
+    mkdir -p $HOME/firefirma/profile
+    cat << EOF >$HOME/firefirma/profiles.ini
+[General]
+StartWithLastProfile=1
+
+[Profile0]
+Name=Perfil para Firma Electrónica
+IsRelative=0
+Path=$HOME/firefirma/profile 
+EOF
+fi
+
+HERE="$(dirname "$(readlink -f "${0}")")"
+export PATH="${HERE}"/usr/bin/:"${HERE}"/usr/sbin/::"${HERE}"/bin/:"${HERE}"/sbin/:"${PATH}"
+export LD_LIBRARY_PATH="${HERE}"/usr/lib/:"${HERE}"/usr/lib/i386-linux-gnu/:"${HERE}"/usr/lib/x86_64-linux-gnu/:"${HERE}"/usr/lib32/:"${HERE}"/usr/lib64/:"${HERE}"/lib/:"${HERE}"/lib/i386-linux-gnu/:"${HERE}"/lib/x86_64-linux-gnu/:"${HERE}"/lib32/:"${HERE}"/lib64/:"${LD_LIBRARY_PATH}"
+export XDG_DATA_DIRS="${HERE}"/usr/share/:"${XDG_DATA_DIRS}"
+export GSETTINGS_SCHEMA_DIR="${HERE}"/usr/share/glib-2.0/schemas/:"${GSETTINGS_SCHEMA_DIR}"
+exec $HERE/firefox --no-remote --new-window --profile $HOME/firefirma/profile "$@" file://$APPDIR/web/index.html
+
