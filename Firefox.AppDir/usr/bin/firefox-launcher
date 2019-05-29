@@ -2,7 +2,7 @@
 
 #Creamos un perfil nuevo de Firefox 
 
-if [[ ! -e $HOME/firefirma/profile ]]; then
+if [ ! -d $HOME/firefirma/profile ]; then
     mkdir -p $HOME/firefirma/profile
     cat << EOF >$HOME/firefirma/profiles.ini
 [General]
